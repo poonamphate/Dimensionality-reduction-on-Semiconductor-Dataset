@@ -49,10 +49,6 @@ Testing - 92.67%
 2. It can be seen clearly that the accuracy of training set is higher than test set. This indicates that our model is overfitting the training data and it fails to generalize well on unseen data. Thus, applying dimensionality reduction techniques would help to reduce the noise from training data and thus improving model performance on test set.
 3. Following table shows performance of different dimensionally reduction techniques on secom datasets.
 
-Dimensionality reduction techniqueFeaturesTraining set accuracy(%)Test set accuracy(%)1.Logistic regression59099.1292.672.Low variance26695.7693.313.Univariate5092.8995.854.L1 based feature selection
-103
-94.00
-92.995.PCA9594.0393.87  
 4. From the above table, it can be concluded that, after applying feature selection techniques like low variance, univariate feature selection and L1 based feature selection as a preprocessing step, performance of classifier has improved. However, the best performance is achieved by applying PCA with 95 transformed features.
  
 
