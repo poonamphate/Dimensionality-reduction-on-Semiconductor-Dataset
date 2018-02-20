@@ -36,12 +36,16 @@ from sklearn.linear_model import LogisticRegression
 classifier = LogisticRegression(random_state = 0) 
 classifier.fit(X_train, y_train)
 
+# Confusion matrix for training set
+from sklearn.metrics import confusion_matrix
+X_pred = classifier.predict(X_train)
+cm_training = confusion_matrix(y_train, X_pred)
+
 #predicting Test set results
 y_pred = classifier.predict(X_test)
 
-# making confusion matrix
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
+# Confusion matrix for test set
+cm_test = confusion_matrix(y_test, y_pred)
 
 print('Training accuracy:', classifier.score(X_train, y_train))
 print('Test accuracy:', classifier.score(X_test, y_test))
