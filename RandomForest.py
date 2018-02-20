@@ -1,7 +1,6 @@
 
 # importing libraries
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 
 # importing dataset
@@ -32,19 +31,25 @@ X_test = sc_X.transform(X_test)
 # Applying Random Forest classifier
 from sklearn.ensemble import RandomForestClassifier
 
-forest = RandomForestClassifier(n_estimators=10000, random_state=0, n_jobs=-1)
+forest = RandomForestClassifier(n_estimators=100, random_state=0, n_jobs=-1)
 forest.fit(X_train, y_train)
 importances = forest.feature_importances_
+std = np.std([tree.feature_importances_ for tree in forest.estimators_],
+             axis=0)
 indices = np.argsort(importances)[::-1]
+
+#print feature importances in descending order
 for f in range(X_train.shape[1]):
-    print("%2d) %f" % (f + 1, importances[indices[f]]))
+    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+
+# Plot bar graph of feature importances
+import matplotlib.pyplot as plt
+plt.figure()
+plt.title("Feature importances")
+plt.xlabel('Number of features')
+plt.ylabel('Importances')
+plt.bar(range(X_train.shape[1]), importances[indices],
+       color="b", align="center")
+
+plt.show()
  
-import matplotlib.pyplot as plot       
-plot.title('Feature Importances')
-plot.bar(range(X_train.shape[1]), importances[indices], 
-                     color='green', align='center')
-plot.xticks(range(X_train.shape[1]),
-plot.feat_labels, rotation=90)
-plot.xlim([-1, X_train.shape[1]])
-plot.tight_layout()
-plot.show()
