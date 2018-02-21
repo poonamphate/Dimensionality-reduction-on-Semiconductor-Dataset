@@ -1,3 +1,5 @@
+# Univariate feature selection using K best features
+
 #importing libraries
 import pandas as pd
 
@@ -21,13 +23,17 @@ from sklearn.preprocessing import MinMaxScaler
 mms = MinMaxScaler()
 X_norm = mms.fit_transform(X)
 
-# Univariate feature selection
+# Univariate feature selection using K best features
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
-X_uv = SelectKBest(chi2, k=50).fit_transform(X_norm, y)
-X_uv.shape
 
-#splitting the dataset into Training set and Test set
+X_uv = SelectKBest(chi2, k=59).fit(X_norm, y)
+X_uv.get_support(indices=True)
+
+X_uv = SelectKBest(chi2, k=59).fit_transform(X_norm, y)
+print(X_uv.shape)
+
+# Splitting the dataset into Training set and Test set
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X_uv, y, test_size = 0.2, random_state = 0)
 
@@ -36,12 +42,16 @@ from sklearn.linear_model import LogisticRegression
 classifier = LogisticRegression(random_state = 0) 
 classifier.fit(X_train, y_train)
 
+# Confusion matrix for training set
+from sklearn.metrics import confusion_matrix
+X_pred = classifier.predict(X_train)
+cm_training = confusion_matrix(y_train, X_pred)
+
 #predicting Test set results
 y_pred = classifier.predict(X_test)
 
-# making confusion matrix
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
+# Confusion matrix for test set
+cm_test = confusion_matrix(y_test, y_pred)
 
 print('Training accuracy:', classifier.score(X_train, y_train))
 print('Test accuracy:', classifier.score(X_test, y_test))
