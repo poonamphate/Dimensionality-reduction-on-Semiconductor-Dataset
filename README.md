@@ -10,14 +10,14 @@ In this project we will explore and compare following techniques.
 2. Using Extra Trees Classifier
 3. Using Low Variance
 4. Univariate feature Selection
-	SelectKBest
-	SelectPercentile
-	SelectFpr
-	SelectFdr
-	SelectFwe
+4.1 SelectKBest
+	4.2 SelectPercentile
+	4.3 SelectFpr
+	4.4 SelectFdr
+	4.5 SelectFwe
 5. L1 based feature selection
-	Using SelectFromModel and LogisticRegression
-	SelectFromModel and LinearSVC
+5.1 Using SelectFromModel and LogisticRegression
+	5.2 SelectFromModel and LinearSVC
 
 ####Feature Extraction Technique
 	Principal Component Analysis
