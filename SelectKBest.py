@@ -27,10 +27,10 @@ X_norm = mms.fit_transform(X)
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 
-X_uv = SelectKBest(chi2, k=59).fit(X_norm, y)
+X_uv = SelectKBest(chi2, k=50).fit(X_norm, y)
 X_uv.get_support(indices=True)
 
-X_uv = SelectKBest(chi2, k=59).fit_transform(X_norm, y)
+X_uv = SelectKBest(chi2, k=50).fit_transform(X_norm, y)
 print(X_uv.shape)
 
 # Splitting the dataset into Training set and Test set

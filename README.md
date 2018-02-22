@@ -5,11 +5,22 @@
 In this project, semiconductor manufacturing dataset has been studied and analyzed. 
 In a modern semiconductor industry, manufacturing is a complex and evolved process. Semiconductor wafers undergo various processing tools where its electric and physical characteristics are altered. At each stage, vast number of signals are collected and analyzed. However, not all the signals are equally valuable. The information obtained from these collected signals contain useful information as well as noise. Thus, dimensionality reduction techniques such as feature selection and feature extraction can be applied to obtain most relevant features. 
 In this project we will explore and compare following techniques.
-1. Removing features with low variance
-2. Univariate feature selection
-3. L1 based feature selection
-4. Feature selection using Random Forest
-5. Principal Component Analysis
+####Feature Selection Techniques
+1. Using Random Forest Classifier
+2. Using Extra Trees Classifier
+3. Using Low Variance
+4. Univariate feature Selection
+	SelectKBest
+	SelectPercentile
+	SelectFpr
+	SelectFdr
+	SelectFwe
+5. L1 based feature selection
+	Using SelectFromModel and LogisticRegression
+	SelectFromModel and LinearSVC
+
+####Feature Extraction Technique
+	Principal Component Analysis
 
 ### Dataset
 
