@@ -23,14 +23,14 @@ from sklearn.preprocessing import MinMaxScaler
 mms = MinMaxScaler()
 X_norm = mms.fit_transform(X)
 
-# Univariate feature selection using false positive rate
+# Univariate feature selection using false discovery rate
 from sklearn.feature_selection import SelectFdr, f_classif
 X_fdr = SelectFdr(f_classif, alpha = 0.05).fit(X, y)
 
 # Get indices of selected features
 X_fdr.get_support(indices=True)
 
-# select features using false positive rate method
+# select features using false discovery rate method
 X_fdr = SelectFdr(f_classif, alpha = 0.05).fit_transform(X, y)
 print(X_fdr.shape)
 

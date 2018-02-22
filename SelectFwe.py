@@ -1,9 +1,9 @@
-# Feature extraction using Principal component analysis
+# Univariate feature selection using family wise error
 
-# importing libraries
+#importing libraries
 import pandas as pd
 
-# importing dataset
+#importing dataset
 # create matrix of independent variables(features)
 data_X = pd.read_csv('secom.data.txt', sep = ' ')
 X = data_X.values
@@ -18,22 +18,25 @@ imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
 imputer = imputer.fit(X)
 X = imputer.transform(X)
 
-# splitting the dataset into Training set and Test set
+#feature scaling
+from sklearn.preprocessing import MinMaxScaler
+mms = MinMaxScaler()
+X_norm = mms.fit_transform(X)
+
+# Univariate feature selection using family wise error
+from sklearn.feature_selection import SelectFwe, f_classif
+X_fwe = SelectFwe(f_classif, alpha = 0.05).fit(X, y)
+
+# Get indices of selected features
+X_fwe.get_support(indices=True)
+
+# select features using family wise error method
+X_fwe = SelectFwe(f_classif, alpha = 0.05).fit_transform(X, y)
+print(X_fwe.shape)
+
+# Splitting the dataset into Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
-
-# feature scaling
-from sklearn.preprocessing import StandardScaler
-sc_X = StandardScaler()
-X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test)
-
-# applying PCA
-from sklearn.decomposition import PCA
-pca = PCA(n_components= 95)
-X_train = pca.fit_transform(X_train)
-X_test = pca.transform(X_test)
-explained_variance = pca.explained_variance_ratio_
+X_train, X_test, y_train, y_test = train_test_split(X_fwe, y, test_size = 0.2, random_state = 0)
 
 # fitting logistic regression to Training Set
 from sklearn.linear_model import LogisticRegression
@@ -53,4 +56,5 @@ cm_test = confusion_matrix(y_test, y_pred)
 
 print('Training accuracy:', classifier.score(X_train, y_train))
 print('Test accuracy:', classifier.score(X_test, y_test))
+
 

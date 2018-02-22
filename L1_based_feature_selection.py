@@ -19,10 +19,26 @@ X = imputer.transform(X)
 # L1 based feature selection
 from sklearn.svm import LinearSVC
 from sklearn.feature_selection import SelectFromModel
+from sklearn.linear_model import LogisticRegression
+
+# SelectFromModel and Logistic Regression
+logreg = LogisticRegression(random_state = 0) 
+logreg.fit(X, y)
+model = SelectFromModel(logreg)
+X_logreg = model.fit(X, y)
+#X_logreg.shape
+
+# Get indices of selected features
+X_logreg.get_support(indices=True)
+
+# SelectFromModel and LinearSVC
 lsvc = LinearSVC(C=0.01, penalty="l1", dual=False).fit(X, y)
 model = SelectFromModel(lsvc, prefit=True)
 X_lsvc = model.transform(X)
 X_lsvc.shape
+
+# Get indices of selected features
+#X_logreg.get_support(indices=True)
 
 #splitting the dataset into Training set and Test set
 from sklearn.model_selection import train_test_split
